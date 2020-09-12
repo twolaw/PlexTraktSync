@@ -97,7 +97,7 @@ You can choose a container name as you want (ptsync) and you can change the [tim
 If you want easy access to config files, you can tweak the command to map a volume :
 `docker create --name ptsync -v /home/ptsync:/usr/src/app -e TZ="Europe/London" --restart on-failure:2 twolaw/plextraktsync:latest`
 
-In this case, the /home/ptsync (an example) folder on your system must contain all files of the PlexTraktSync github project (git clone is your friend).
+In this case, the /home/ptsync (an example) folder on your system must contain all files of the PlexTraktSync github project (use `git clone https://github.com/Taxel/PlexTraktSync.git`).
 
 To run the container :
 `docker start -ia ptsync`
