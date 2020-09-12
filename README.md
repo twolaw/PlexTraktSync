@@ -90,9 +90,14 @@ To build the image :
 You can choose an image name as you want (me/plextraktsync:latest).
 
 To create the container :
-`docker create --name ptsync -v /home/ptsync:/usr/src/app -e TZ="Europe/London" --restart on-failure:2 me/plextraktsync:latest`
+`docker create --name ptsync -e TZ="Europe/London" --restart on-failure:2 twolaw/plextraktsync:latest`
+
 You can choose a container name as you want (ptsync) and you can change the [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) or remove it (it's UTC by default).
-The volume is needed for easy access to config files, you can change the destination (/home/ptsync).
+
+If you want easy access to config files, you can tweak the command to map a volume :
+`docker create --name ptsync -v /home/ptsync:/usr/src/app -e TZ="Europe/London" --restart on-failure:2 twolaw/plextraktsync:latest`
+
+In this case, the /home/ptsync (an example) folder on your system must contain all files of the PlexTraktSync github project (git clone is your friend).
 
 To run the container :
 `docker start -ia ptsync`
