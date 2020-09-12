@@ -82,3 +82,19 @@ by setting them from `true` to `false` in a text editor:
 
  - The PyTrakt API keys are not stored securely, so if you do not want to have
    a file containing those on your harddrive, you can not use this project.
+
+## Docker
+
+To build the image :
+`docker build -t me/plextraktsync:latest .`
+You can choose an image name as you want (me/plextraktsync:latest).
+
+To create the container :
+`docker create --name ptsync -v /home/ptsync:/usr/src/app -e TZ="Europe/London" --restart on-failure:2 me/plextraktsync:latest`
+You can choose a container name as you want (ptsync) and you can change the [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) or remove it (it's UTC by default).
+The volume is needed for easy access to config files, you can change the destination (/home/ptsync).
+
+To run the container :
+`docker start -ia ptsync`
+
+The first run must be interactive (docker run -it or docker start -ia) in order to setup your trakt and plex credentials.
