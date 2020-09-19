@@ -90,7 +90,7 @@ To build the image :
 You can choose an image name as you want (me/plextraktsync:latest).
 
 To create the container :
-`docker create --name ptsync -e TZ="Europe/London" --restart on-failure:2 twolaw/plextraktsync:latest`
+`docker create --name ptsync -e TZ=Europe/London --restart on-failure:2 twolaw/plextraktsync:latest`
 
 You can choose a container name as you want (ptsync) and you can change the [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) or remove it (it's UTC by default).
 
