@@ -180,7 +180,7 @@ def process_show_section(s, watched_set):
                 logging.error("Show [{} ({})]: Did not find on Trakt. Aborting. GUID: {}".format(show.title, show.year, guid))
                 continue
             with requests_cache.disabled():
-                trakt_collected = pytrakt_extensions.collected(trakt_show.slug)
+                trakt_collected = pytrakt_extensions.collected(trakt_show.trakt)
             start_time = time()
             # this lookup-table is accessible via lookup[season][episode]
             with requests_cache.disabled():
@@ -306,12 +306,18 @@ def main():
     if plex_token == '-':
         plex_token = ""
     with requests_cache.disabled():
-        plex = plexapi.server.PlexServer(
-            token=plex_token, baseurl=plex_baseurl)
-        logging.info("Server version {} updated at: {}".format(
-            plex.version, plex.updatedAt))
-        logging.info("Recently added: {}".format(
-            plex.library.recentlyAdded()[:5]))
+        try:
+            plex = plexapi.server.PlexServer(
+                token=plex_token, baseurl=plex_baseurl)
+            logging.info("Server version {} updated at: {}".format(
+                plex.version, plex.updatedAt))
+            logging.info("Recently added: {}".format(
+                plex.library.recentlyAdded()[:5]))
+        except Exception as e:
+            m = "Plex connection error: {}".format(str(e))
+            logging.info(m)
+            print(m)
+            exit(1)
 
     with requests_cache.disabled():
         sections = plex.library.sections()
